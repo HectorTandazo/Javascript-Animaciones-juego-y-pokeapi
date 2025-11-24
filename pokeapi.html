@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="estilos.css">
+    <title>POKE-API</title>
+</head>
+
+<body>
+    <div id="cabecera">
+        <h1>JavaScript</h1>
+    </div>
+
+    <div id="menu">
+        <a href="index.html" class="item_menu">Inicio</a>
+        <a href="juegoMario.html" class="item_menu">Game Mario</a>
+        <a href="pokeapi.html" class="item_menu">PokeApi</a>
+        <a href="animation.html" class="item_menu">Animación</a>
+    </div>
+
+    <main class="container">
+        <header class="header">
+            <h1>PokeAPI — Buscador</h1>
+            <p>Busca por nombre o ID (ej. <em>pikachu</em> o <em>25</em>).</p>
+        </header>
+
+        <section class="search">
+            <input id="searchInput" type="text" placeholder="Nombre o ID del Pokémon" />
+            <button id="searchBtn">Buscar</button>
+            <button id="randomBtn">Aleatorio</button>
+        </section>
+
+        <section id="card" class="card hidden">
+            <div class="card-left">
+                <img id="pokeImg" src="" alt="sprite" />
+            </div>
+            <div class="card-right">
+                <h2 id="pokeName">-</h2>
+                <p id="pokeId">ID: -</p>
+                <div id="types" class="types"></div>
+                <div id="stats" class="stats"></div>
+                <div id="moves" class="moves"></div>
+            </div>
+        </section>
+
+        <section id="error" class="error hidden"></section>
+
+        <footer class="footer">
+            <small>Datos por <a href="https://pokeapi.co/" target="_blank">PokeAPI</a></small>
+        </footer>
+    </main>
+
+    <script src="mscript.js"></script>
+</body>
+</html>

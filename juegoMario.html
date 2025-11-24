@@ -1,0 +1,128 @@
+﻿<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="miscript.js"></script>
+    <link rel="stylesheet" href="estilos.css">
+    <link href="Content/style.css" rel="stylesheet" />
+    <link href="Content/gameMenu.css" rel="stylesheet" />
+    <title>GAME MARIO BROS</title>
+</head>
+
+<body class="game-page">
+    <div id="cabecera">
+        <h1>JavaScript</h1>
+    </div>
+
+    <div id="menu">
+        <a href="index.html" class="item_menu">Inicio</a>
+        <a href="juegoMario.html" class="item_menu">Game Mario</a>
+        <a href="pokeapi.html" class="item_menu">PokeApi</a>
+        <a href="animation.html" class="item_menu">Animación</a>
+    </div>
+
+    <div id="game">
+        <div id="world">
+        </div>
+        <div id="coinNumber" class="gauge">0</div>
+        <div id="coin" class="gaugeSprite"></div>
+        <div id="liveNumber" class="gauge">0</div>
+        <div id="live" class="gaugeSprite"></div>
+    </div>
+    
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+    <script src="Scripts/testlevels.js"></script>
+    <script src="Scripts/oop.js"></script>
+    <script src="Scripts/keys.js"></script>
+    <script src="Scripts/constants.js"></script>
+    <script src="Scripts/soundManager.js"></script>
+    <script src="Scripts/particles.js"></script>
+    <script src="Scripts/main.js"></script>
+    <script src="Scripts/gameMenu.js"></script>
+
+    <script>
+        var gameLevel;
+
+        function toggleMute() {
+            if (gameLevel && gameLevel.soundManager) {
+                var muted = gameLevel.soundManager.toggleMute();
+                document.getElementById('muteBtn').innerHTML = muted ? '🔇' : '🔊';
+            }
+        }
+
+        function setMusicVolume(value) {
+            if (gameLevel && gameLevel.soundManager) {
+                gameLevel.soundManager.setMusicVolume(value / 100);
+            }
+        }
+
+        function setEffectsVolume(value) {
+            if (gameLevel && gameLevel.soundManager) {
+                gameLevel.soundManager.setEffectsVolume(value / 100);
+            }
+        }
+
+        // Pausar juego con tecla P y mostrar menú con ESC
+        document.addEventListener('keydown', function (event) {
+            if (event.key === 'p' || event.key === 'P') {
+                if (gameLevel && !GameMenu.isVisible) {
+                    if (gameLevel.loop) {
+                        gameLevel.pause();
+                        gameLevel.soundManager.stopMusic();
+                        gameLevel.playSound('pause');
+                    } else {
+                        gameLevel.start();
+                        if (gameLevel.id === 0) {
+                            gameLevel.playMusic('overworld');
+                        } else {
+                            gameLevel.playMusic('underground');
+                        }
+                    }
+                }
+            }
+            
+            if (event.key === 'Escape') {
+                if (gameLevel && !GameMenu.isVisible) {
+                    gameLevel.pause();
+                    autoSave();
+                    GameMenu.showMenu();
+                }
+            }
+        });
+
+        // Modificar la inicialización del juego
+        $(document).ready(function () {
+            keys.bind(); // Bind keys una sola vez al cargar
+            GameMenu.init();
+        });
+
+        // Función para guardar progreso automáticamente
+        function autoSave() {
+            if (gameLevel && !GameMenu.isVisible) {
+                var mario = null;
+                for (var i = gameLevel.figures.length; i--;) {
+                    if (gameLevel.figures[i] instanceof Mario) {
+                        mario = gameLevel.figures[i];
+                        break;
+                    }
+                }
+                
+                if (mario) {
+                    GameMenu.saveGame({
+                        level: gameLevel.id || 0,
+                        lives: mario.lifes,
+                        coins: mario.coins,
+                        score: gameLevel.score || 0
+                    });
+                }
+            }
+        }
+
+        // Guardar cada 30 segundos
+        setInterval(autoSave, 30000);
+    </script>
+</body>
+
+</html>

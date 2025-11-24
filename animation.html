@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="estilos.css">
+    <title>Javascript</title>
+</head>
+
+<body class="animation-page">
+    <div id="cabecera">
+        <h1>JavaScript</h1>
+    </div>
+
+    <div id="menu">
+        <a href="index.html" class="item_menu">Inicio</a>
+        <a href="juegoMario.html" class="item_menu">Game Mario</a>
+        <a href="pokeapi.html" class="item_menu">PokeApi</a>
+        <a href="animation.html" class="item_menu">Animación</a>
+    </div>
+
+    <div id="escenario">
+        <div id="cubo">
+            <div class="cara frontal">FRONT</div>
+            <div class="cara trasera">BACK</div>
+            <div class="cara superior">TOP</div>
+            <div class="cara inferior">BOTTOM</div>
+            <div class="cara izquierda">LEFT</div>
+            <div class="cara derecha">RIGHT</div>
+        </div>
+    </div>
+
+    <div class="controles">
+        <button class="btn-control" onclick="pausarCubo()">Pausar/Reanudar</button>
+        <button class="btn-control" onclick="cambiarVelocidad()">Cambiar Velocidad</button>
+        <button class="btn-control" onclick="cambiarDireccion()">Cambiar Dirección</button>
+    </div>
+
+    <script src="mscript.js"></script>
+
+</body>
+
+</html>
